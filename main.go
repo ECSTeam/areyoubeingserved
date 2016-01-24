@@ -64,7 +64,7 @@ func main() {
 
   templates = template.Must(template.ParseFiles("templates/tester.html"))
 
-	http.HandleFunc("/", handle)
+  http.HandleFunc("/", handle)
 
   err := http.ListenAndServe(":" + os.Getenv("PORT"), nil)
   if err != nil {

@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 24M
+  instances: 1
+  name: willitserve
+  host: willitserve
+  disk_quota: 1024M
+  buildpack: https://github.com/cloudfoundry/go-buildpack.git
+  services:
+  - meetup-redis
+  - tester-mysql

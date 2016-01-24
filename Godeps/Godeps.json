@@ -27,10 +27,6 @@
 			"Rev": "2402d76f3d41f928c7902a765dfc872356dd3aad"
 		},
 		{
-			"ImportPath": "github.com/jghiloni/hello-world-go",
-			"Rev": "97deb465abdcff6a74623f3ff4dc4af3a272c4f0"
-		},
-		{
 			"ImportPath": "github.com/mitchellh/mapstructure",
 			"Rev": "281073eb9eb092240d33ef253c404f1cca550309"
 		},

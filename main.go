@@ -42,9 +42,9 @@ func handle(w http.ResponseWriter, r *http.Request) {
           success, err := tester.TestService(service)
 
           result.Success = success
-        	if err != nil {
-        	  result.Notes = err.Error()
-        	}
+      	  if err != nil {
+      	    result.Notes = err.Error()
+      	  }
         } else {
           result.Accepted = false
         }

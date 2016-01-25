@@ -1,73 +1,73 @@
 package main
 
 import (
-  "os"
-  "log"
-  "github.com/jghiloni/willitserve/common"
-  "github.com/jghiloni/willitserve/mysql"
-  "github.com/cloudfoundry-community/go-cfenv"
-  "net/http"
-  "html/template"
+	"github.com/cloudfoundry-community/go-cfenv"
+	"github.com/ECSTeam/willitserve/common"
+	"github.com/ECSTeam/willitserve/mysql"
+	"html/template"
+	"log"
+	"net/http"
+	"os"
 )
 
 var templates *template.Template = (*template.Template)(nil)
 
 var testers map[string]common.ServiceTester = map[string]common.ServiceTester{
-  "mysql": mysql.ServiceTester{},
+	"mysql": mysql.ServiceTester{},
 }
 
 type Result struct {
-  ServiceName string
-  TesterName string
-  Accepted bool
-  Success bool
-  Notes string
+	ServiceName string
+	TesterName  string
+	Accepted    bool
+	Success     bool
+	Notes       string
 }
 
 func handle(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("Content-Type", "text/html")
-  appEnv, _ := cfenv.Current()
+	w.Header().Set("Content-Type", "text/html")
+	appEnv, _ := cfenv.Current()
 
-  results := []Result{}
+	results := []Result{}
 
-  for _, servicesSlice := range appEnv.Services {
-    for _, service := range servicesSlice {
-      for key, tester := range testers {
-        result := Result{
-          ServiceName: service.Name,
-          TesterName: key,
-        }
-        if tester.AcceptService(service) {
-          result.Accepted = true
-          success, err := tester.TestService(service)
+	for _, servicesSlice := range appEnv.Services {
+		for _, service := range servicesSlice {
+			for key, tester := range testers {
+				result := Result{
+					ServiceName: service.Name,
+					TesterName:  key,
+				}
+				if tester.AcceptService(service) {
+					result.Accepted = true
+					success, err := tester.TestService(service)
 
-          result.Success = success
-      	  if err != nil {
-      	    result.Notes = err.Error()
-      	  }
-        } else {
-          result.Accepted = false
-        }
+					result.Success = success
+					if err != nil {
+						result.Notes = err.Error()
+					}
+				} else {
+					result.Accepted = false
+				}
 
-        results = append(results, result)
-      }
-    }
-  }
+				results = append(results, result)
+			}
+		}
+	}
 
-  err := templates.ExecuteTemplate(w, "tester.html", results)
-  if err != nil {
-    http.Error(w, err.Error(), http.StatusInternalServerError)
-  }
+	err := templates.ExecuteTemplate(w, "tester.html", results)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {
 
-  templates = template.Must(template.ParseFiles("templates/tester.html"))
+	templates = template.Must(template.ParseFiles("templates/tester.html"))
 
-  http.HandleFunc("/", handle)
+	http.HandleFunc("/", handle)
 
-  err := http.ListenAndServe(":" + os.Getenv("PORT"), nil)
-  if err != nil {
-    log.Fatal(err)
-  }
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

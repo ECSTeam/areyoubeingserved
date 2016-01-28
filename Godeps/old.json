@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/ECSTeam/willitserve",
+	"ImportPath": "github.com/ECSTeam/areyoubeingserved",
 	"GoVersion": "go1.5",
 	"Packages": [
 	],

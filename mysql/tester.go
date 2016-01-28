@@ -6,7 +6,7 @@ import (
   "github.com/cloudfoundry-community/go-cfenv"
   "database/sql"
   _ "github.com/go-sql-driver/mysql"
-  "github.com/ECSTeam/willitserve/common"
+  "github.com/ECSTeam/areyoubeingserved/common"
 )
 
 type ServiceTester struct {}

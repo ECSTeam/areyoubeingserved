@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/cloudfoundry-community/go-cfenv"
-	"github.com/ECSTeam/willitserve/common"
-	"github.com/ECSTeam/willitserve/mysql"
+	"github.com/ECSTeam/areyoubeingserved/common"
+	"github.com/ECSTeam/areyoubeingserved/mysql"
 	"html/template"
 	"log"
 	"net/http"

@@ -1,1 +1,1 @@
-web: areyoubeingserved
+web: ./areyoubeingserved

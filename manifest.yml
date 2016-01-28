@@ -5,7 +5,8 @@ applications:
   name: willitserve
   host: willitserve
   disk_quota: 1024M
-  buildpack: https://github.com/cloudfoundry/go-buildpack.git
+  #buildpack: https://github.com/cloudfoundry/go-buildpack.git
+  buildpack: binary_buildpack
   services:
   #- meetup-redis
   - tester-mysql
